@@ -93,6 +93,10 @@ public class CartService implements BaseService<CartDto> {
       final Optional<Cart> optionalCart = repository.findById(cartId);
       final Cart cart = optionalCart.orElseThrow(() -> new ServiceException("Cart not found with id: " + cartId));
 
+      if (cart.isCheckout()) {
+        throw new ServiceException("You can't add more products because the cart is already checked out!");
+      }
+
       addProductsToCart(dto, cart, product);
       cart.setCheckout(false); // still not checked-out
 

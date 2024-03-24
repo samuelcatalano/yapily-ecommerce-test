@@ -89,7 +89,7 @@ public class CartController {
    * @throws ApiException If an unexpected error occurs during the checkout process, an ApiException is thrown
    * with a descriptive error message.
    */
-  @PostMapping(path = "/{id}")
+  @PostMapping(path = "/{id}/checkout")
   public ResponseEntity<CheckoutDto> checkoutCart(@PathVariable(name = "id") final Long id) throws ApiException {
     try {
       final var response = service.checkout(id);
