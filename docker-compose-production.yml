@@ -1,0 +1,29 @@
+version: '3.9'
+
+x-postgres-config:
+  &env_postgres
+  POSTGRES_PASSWORD: postgres
+
+services:
+  postgres:
+    image: bitnami/postgresql:14.6.0
+    container_name: postgres
+    hostname: postgres
+    restart: always
+    ports: [ '5432:5432' ]
+    networks: [ yapily ]
+    environment:
+      <<: *env_postgres
+
+  app:
+    image: yapily:latest
+    container_name: yapily
+    hostname: yapily
+    restart: always
+    ports: [ '8080:8080' ]
+    networks: [ yapily ]
+    depends_on: [ postgres ]
+
+networks:
+  yapily:
+    name: yapily

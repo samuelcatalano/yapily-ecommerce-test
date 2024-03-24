@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: yapily-e-commerce-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  profiles:
+    active: prod
+  banner:
+    location: banner.txt
+server:
+  port: 8080
+
