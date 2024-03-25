@@ -7,6 +7,8 @@ import co.uk.yapily.dto.CheckoutDto;
 import co.uk.yapily.exception.ApiException;
 import co.uk.yapily.exception.ServiceException;
 import co.uk.yapily.service.CartService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,6 +40,10 @@ public class CartController {
    * @return ResponseEntity containing the saved cart DTO
    * @throws ApiException if an error occurs during the saving process
    */
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201", description = "Cart saved successfully"),
+      @ApiResponse(responseCode = "500", description = "Problems encountered while saving the cart")
+  })
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CartDto> saveCart(@Validated @RequestBody final CartDto dto) throws ApiException {
     try {
@@ -62,6 +68,10 @@ public class CartController {
    * @return ResponseEntity containing the updated CartDto and HTTP status OK if successful.
    * @throws ApiException If there are errors during the update process, wrapped with a meaningful message.
    */
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Cart updated successfully"),
+      @ApiResponse(responseCode = "500", description = "Problems encountered while updating the cart")
+  })
   @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CartDto> updateCart(@Validated @RequestBody final CartItemDto dto, @PathVariable(name = "id") final Long id)
   throws ApiException {
@@ -89,6 +99,10 @@ public class CartController {
    * @throws ApiException If an unexpected error occurs during the checkout process, an ApiException is thrown
    * with a descriptive error message.
    */
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Cart checked out successfully"),
+      @ApiResponse(responseCode = "500", description = "Problems encountered while checking out the cart")
+  })
   @PostMapping(path = "/{id}/checkout")
   public ResponseEntity<CheckoutDto> checkoutCart(@PathVariable(name = "id") final Long id) throws ApiException {
     try {
@@ -108,6 +122,10 @@ public class CartController {
    * @return a ResponseEntity with status 204 (No Content) if the deletion is successful
    * @throws ApiException if an unexpected error occurs while deleting the cart
    */
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "204", description = "Cart deleted successfully"),
+      @ApiResponse(responseCode = "500", description = "Problems encountered while deleting out the cart")
+  })
   @DeleteMapping(path = "/{id}")
   public ResponseEntity<Void> deleteCart(@PathVariable(name = "id") final Long id) throws ApiException {
     try {
@@ -125,6 +143,10 @@ public class CartController {
    * @return a ResponseEntity containing the CartDto representing the retrieved cart, with status 200 (OK) if found
    * @throws ApiException if an unexpected error occurs while retrieving the cart
    */
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Cart found successfully"),
+      @ApiResponse(responseCode = "500", description = "Problems encountered while finding the cart")
+  })
   @GetMapping(path = "/{id}")
   public ResponseEntity<CartDto> findCartById(@PathVariable(name = "id") final Long id) throws ApiException {
     try {
@@ -141,6 +163,10 @@ public class CartController {
    * @return a ResponseEntity containing a list of CartDto representing all carts, with status 200 (OK) if found
    * @throws ApiException if an unexpected error occurs while retrieving all carts
    */
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "List of Carts found successfully"),
+      @ApiResponse(responseCode = "500", description = "Problems encountered while finding list of carts")
+  })
   @GetMapping
   public ResponseEntity<List<CartDto>> findAllCarts() throws ApiException {
     try {
