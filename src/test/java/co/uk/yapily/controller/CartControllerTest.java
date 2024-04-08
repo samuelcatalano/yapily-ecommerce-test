@@ -121,7 +121,7 @@ class CartControllerTest {
     when(cartService.checkout(cartId)).thenReturn(checkoutDto);
 
     // When
-    final ResultActions resultActions = mockMvc.perform(post("/carts/{id}", cartId));
+    final ResultActions resultActions = mockMvc.perform(post("/carts/{id}/checkout", cartId));
 
     // Then
     resultActions.andExpect(status().isOk())
@@ -142,21 +142,6 @@ class CartControllerTest {
 
   @Test
   @Order(7)
-  void test_checkout_Cart_ReturnsNotFound() throws Exception {
-    // Given
-    final Long cartId = 1L;
-    final CheckoutDto checkoutDto = new CheckoutDto();
-    when(cartService.checkout(cartId)).thenReturn(checkoutDto);
-
-    // When
-    final ResultActions resultActions = mockMvc.perform(post("/carts/{id}/checkout", cartId));
-
-    // Then
-    resultActions.andExpect(status().isNotFound());
-  }
-
-  @Test
-  @Order(8)
   void test_find_cart_by_id_ValidId_ReturnsOk() throws Exception {
     // Given
     final Long cartId = 1L;
@@ -172,7 +157,7 @@ class CartControllerTest {
   }
 
   @Test
-  @Order(9)
+  @Order(8)
   void test_find_Cart_by_id_InvalidId_ReturnsNotFound() throws Exception {
     // Given
     when(cartService.findById(null)).thenThrow(new ServiceException("Cart not found"));
@@ -183,7 +168,7 @@ class CartControllerTest {
   }
 
   @Test
-  @Order(10)
+  @Order(9)
   void test_find_all_carts_ReturnsOk() throws Exception {
     // Given
     final List<CartDto> cartDtos = new ArrayList<>();
@@ -199,7 +184,7 @@ class CartControllerTest {
   }
 
   @Test
-  @Order(11)
+  @Order(10)
   void test_find_all_carts_EmptyList_ReturnsOk() throws Exception {
     // Given
     final List<CartDto> emptyCartList = new ArrayList<>();
@@ -215,7 +200,7 @@ class CartControllerTest {
   }
 
   @Test
-  @Order(12)
+  @Order(11)
   void test_find_all_carts_ServiceError_ReturnsInternalServerError() throws Exception {
     // Given
     when(cartService.findAll()).thenThrow(new ServiceException("Service error"));
