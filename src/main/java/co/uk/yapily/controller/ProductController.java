@@ -1,24 +1,31 @@
 package co.uk.yapily.controller;
 
-import co.uk.yapily.dto.ProductDto;
-import co.uk.yapily.exception.ApiException;
-import co.uk.yapily.exception.ServiceException;
-import co.uk.yapily.service.ProductService;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import co.uk.yapily.dto.ProductDto;
+import co.uk.yapily.exception.ApiException;
+import co.uk.yapily.exception.ServiceException;
+import co.uk.yapily.service.ProductService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(value = "/products")
-@Slf4j
 public class ProductController {
 
   private final ProductService service;
@@ -47,7 +54,7 @@ public class ProductController {
     try {
       final var response = service.save(dto);
       return ResponseEntity.status(HttpStatus.CREATED)
-                           .contentType(MediaType.APPLICATION_JSON)
+                           .contentType(APPLICATION_JSON)
                            .body(response);
     } catch (final ServiceException e) {
       throw new ApiException(e.getMessage(), e);

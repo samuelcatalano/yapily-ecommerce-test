@@ -1,12 +1,16 @@
 package co.uk.yapily.dto;
 
-import co.uk.yapily.dto.base.BaseDto;
-import co.uk.yapily.entity.Product;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
 
-import java.util.List;
+import co.uk.yapily.dto.base.BaseDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
